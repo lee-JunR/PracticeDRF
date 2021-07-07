@@ -3,6 +3,15 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
+from api.models import Profile
+
+# 프로필 시리얼라이저
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ("user_pk", "nickname", "phone", "email")
+
+
 # 회원가입
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:

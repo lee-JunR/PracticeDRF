@@ -7,7 +7,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from knox.models import AuthToken
-from .serializers import CreateUserSerializer, UserSerializer, LoginUserSerializer
+
+from .models import Profile
+from .serializers import CreateUserSerializer, UserSerializer, LoginUserSerializer, ProfileSerializer
+
 
 @api_view(['GET']) #해당 함수 view 에서 처리할 http 메소드
 def HelloAPI(request):
@@ -56,3 +59,9 @@ class UserAPI(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+# 프로필 뷰
+class ProfileUpdateAPI(generics.UpdateAPIView):
+    lookup_field = "user_pk"
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
